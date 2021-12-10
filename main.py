@@ -21,9 +21,18 @@ def create_armies(list_players):
             print("Vos armées : ")
             for i in range(5):
                 print("Armée", i + 1, list_players[each_player_number].get_player_armies()[i].cards)
-            input_modify = bool(int(input("Voulez-vous retirer une carte ou ajouter une carte ? (0/1) : ")))
-            player_army_choice = int(input("Choisissez une armée (1 à 5) : "))
-            player_card_choice = int(input("Choisissez une carte (1 à 13) : "))
+            input_modify = input("Voulez-vous retirer une carte ou ajouter une carte ? (0/1) : ")
+            while not input_modify.isdigit():
+                input_modify = input("Voulez-vous retirer une carte ou ajouter une carte ? (0/1) : ")
+            player_army_choice = input("Choisissez une armée (1 à 5) : ")
+            while (not player_army_choice.isdigit()) or (not 0 < int(player_army_choice) < 6):
+                player_army_choice = input("Choisissez une armée (1 à 5) : ")
+            player_card_choice = input("Choisissez une carte (1 à 13) : ")
+            while not player_card_choice.isdigit():
+                player_card_choice = input("Choisissez une carte (1 à 13) : ")
+            input_modify = bool(int(input_modify))
+            player_army_choice = int(player_army_choice)
+            player_card_choice = int(player_card_choice)
             if input_modify:
                 list_players[each_player_number].add_card_to_army(player_army_choice - 1, player_card_choice)
             else:
@@ -40,11 +49,11 @@ def create_armies(list_players):
                     if list_players[each_player_number].armies[army_number].update_have_king() and \
                             list_players[each_player_number].armies[army_number].update_have_queen():
                         seemsgood = False
-                        print("Les Rois (13) ne peuvent pas être dans la même armée qu'une Reine (12) !")
+                        print("Les Rois (13) ne peuvent pas être dans la même armée qu'un Fou (12) !")
                 if seemsgood:
                     done = bool(int(input("Avez-vous terminé ? (0 : non/1 : oui) : ")))
                 else:
-                    print("Il faut au moins une carte dans chaque armée et les mages (11) ne peuvent être seuls !")
+                    print("Il faut au moins une carte dans chaque armée et les Mages (11) ne peuvent être seuls !")
 
 
 def play_jacks(list_players, number_players, players_army_choices):
@@ -115,10 +124,14 @@ def main():
     players = []
     lonk_deck = deck.Deck()
     lonk_deck.shuffle_deck()
-    player_number = int(input("Nombre de Joueurs : "))
+    player_number = 0
     while player_number > 5 or player_number < 2:
         print("Le nombre de joueurs doit être entre 2 et 5")
-        player_number = int(input("Nombre de Joueurs : "))
+        player_number = input("Nombre de Joueurs : ")
+        while not player_number.isdigit():
+            print("Veuillez entrer un nombre de 2 à 5")
+            player_number = input("Nombre de Joueurs : ")
+        player_number = int(player_number)
     for _ in range(player_number):
         players.append(player.Player())
     for _ in range(10):
