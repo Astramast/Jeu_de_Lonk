@@ -3,11 +3,12 @@ from random import shuffle
 
 class Deck:
     def __init__(self, repetitions=4, values=13):
-        self.cards = [i+1 for i in range(values)]*repetitions
+        self.cards = [i + 1 for i in range(values)]*repetitions
         self.cards.sort()
         self.have_king = self.update_have_king()
         self.have_queen = self.update_have_queen()
         self.have_jack = self.update_have_jack()
+        self.value = sum(self.cards)
 
     def get_cards(self):
         return self.cards
@@ -31,13 +32,25 @@ class Deck:
         shuffle(self.cards)
 
     def update_have_king(self):
-        return 13 in self.cards
+        self.have_king = 13 in self.cards
+        return self.have_king
 
     def update_have_queen(self):
-        return 12 in self.cards
+        self.have_queen = 12 in self.cards
+        return self.have_queen
 
     def update_have_jack(self):
-        return 11 in self.cards
+        self.have_jack = 11 in self.cards
+        return self.have_jack
+
+    def update_value(self):
+        self.value = sum(self.cards)
+
+    def fullupdate(self):
+        self.update_have_jack()
+        self.update_have_queen()
+        self.update_have_king()
+        self.update_value()
 
 
 if __name__ == "__main__":
