@@ -117,13 +117,13 @@ def play_round(list_players, number_players):
         if results[1] == winner_value:
             round_winners.append(results[0])
     for winner in round_winners:
+        print("Le joueur", winner, "a gagné le match, il gagne un point pour un total de", list_players[winner].points)
         list_players[winner].points += 1
 
 
 def main():
     players = []
-    lonk_deck = deck.Deck()
-    lonk_deck.shuffle_deck()
+
     player_number = 0
     while player_number > 5 or player_number < 2:
         print("Le nombre de joueurs doit être entre 2 et 5")
@@ -132,14 +132,28 @@ def main():
             print("Veuillez entrer un nombre de 2 à 5")
             player_number = input("Nombre de Joueurs : ")
         player_number = int(player_number)
+
+    number_matchs = 0
+    while number_matchs < 1:
+        number_matchs = input("Entrez le nombre de matchs par manche (min 1) : ")
+        while not number_matchs.isdigit():
+            print("Veuillez entrer un nombre supérieur ou égal à 1")
+            number_matchs = input("Entrez le nombre de matchs par manche (min 1) : ")
+        number_matchs = int(number_matchs)
+
     for _ in range(player_number):
         players.append(player.Player())
-    for _ in range(10):
-        for each_player in players:
-            each_player.hand.add_card(lonk_deck.take_top_card())
-    create_armies(players)
-    for i in range(5):
-        play_round(players, player_number)
+
+    for match_number in range(number_matchs):
+        print("Match numéro :", match_number)
+        lonk_deck = deck.Deck()
+        lonk_deck.shuffle_deck()
+        for _ in range(10):
+            for each_player in players:
+                each_player.hand.add_card(lonk_deck.take_top_card())
+        create_armies(players)
+        for i in range(5):
+            play_round(players, player_number)
 
 
 if __name__ == "__main__":
