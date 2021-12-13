@@ -1,5 +1,6 @@
 import deck
 import player
+import PyQt5
 
 
 def update_table(list_players, players_army_choices, update_decks=True):
@@ -17,7 +18,7 @@ def create_armies(list_players):
         print("Tour joueur ", each_player_number + 1)
         done = 0
         while not done:
-            print("Vos cartes : ", list_players[each_player_number].get_player_hand())
+            print("Vos cartes : ", list_players[each_player_number]² &'t_player_hand())
             print("Vos armées : ")
             for i in range(5):
                 print("Armée", i + 1, list_players[each_player_number].get_player_armies()[i].cards)
