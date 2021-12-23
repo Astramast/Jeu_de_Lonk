@@ -10,6 +10,9 @@ class Deck:
         self.have_jack = self.update_have_jack()
         self.value = sum(self.cards)
 
+    def delete_army(self):
+        pass
+
     def get_cards(self):
         return self.cards
 

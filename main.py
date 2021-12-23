@@ -60,7 +60,6 @@ def create_armies(list_players):
 def play_jacks(list_players, number_players, players_army_choices):
     for player_number in range(number_players):
         if list_players[player_number].armies[players_army_choices[player_number]].have_jack:
-            print('entré', player_number)
             list_players[player_number].armies[players_army_choices[player_number]], \
                 list_players[(player_number - 1) % number_players].armies[
                 players_army_choices[(player_number - 1) % number_players]] \
@@ -72,14 +71,19 @@ def play_jacks(list_players, number_players, players_army_choices):
             update_table(list_players, players_army_choices, update_decks=False)
 
 
-def play_round(list_players, number_players):
+def players_choose_army(list_players, number_players):
     players_army_choices = []
     for player_number in range(number_players):
         player_choice = int(input("Joueur " + str(player_number + 1)+ ", choisissez une armée à jouer (1 à 5) : "))
         players_army_choices.append(player_choice - 1)
         print("Le joueur", player_number + 1, "joue une armée de",
               len(list_players[player_number].armies[players_army_choices[player_number]].cards), "cartes")
+        list_players[player_number].armies[players_army_choices[player_number]].delete_army()
+    return players_army_choices
 
+
+def play_round(list_players, number_players):
+    players_army_choices = players_choose_army(list_players, number_players)
     update_table(list_players, players_army_choices, update_decks=True)
     play_jacks(list_players, number_players, players_army_choices)
 
@@ -118,8 +122,8 @@ def play_round(list_players, number_players):
         if results[1] == winner_value:
             round_winners.append(results[0])
     for winner in round_winners:
-        print("Le joueur", winner, "a gagné le match, il gagne un point pour un total de", list_players[winner].points)
         list_players[winner].points += 1
+        print("Le joueur", winner, "a gagné le match, il gagne un point pour un total de", list_players[winner].points)
 
 
 def main():
