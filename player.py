@@ -4,9 +4,9 @@ import deck
 class Player:
     def __init__(self):
         self.hand = deck.Deck(0)
-        self.armies = []
-        for _ in range(5):
-            self.armies.append(deck.Deck(0, 0))
+        self.armies = {}
+        for army in range(5):
+            self.armies[army] = deck.Deck(0, 0)
         self.points = 0
 
     def get_player_armies(self):

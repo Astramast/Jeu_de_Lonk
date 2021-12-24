@@ -43,10 +43,9 @@ def create_armies(list_players):
                 for army_number in range(5):
                     if len(list_players[each_player_number].armies[army_number].cards) == 0:
                         seemsgood = False
-                    elif len(list_players[each_player_number].armies[army_number].cards) == 1 \
-                            and list_players[each_player_number].armies[army_number].cards == [11]:
+                    elif len(set(list_players[each_player_number].armies[army_number].cards)) == 1 \
+                            and list_players[each_player_number].armies[army_number].update_have_jack():
                         seemsgood = False
-                    list_players[each_player_number].armies[army_number].fullupdate()
                     if list_players[each_player_number].armies[army_number].update_have_king() and \
                             list_players[each_player_number].armies[army_number].update_have_queen():
                         seemsgood = False
@@ -74,11 +73,11 @@ def play_jacks(list_players, number_players, players_army_choices):
 def players_choose_army(list_players, number_players):
     players_army_choices = []
     for player_number in range(number_players):
-        player_choice = int(input("Joueur " + str(player_number + 1)+ ", choisissez une armée à jouer (1 à 5) : "))
+        player_choice = int(input("Joueur " + str(player_number + 1) + ", choisissez une armée à jouer (1 à 5) : "))
         players_army_choices.append(player_choice - 1)
         print("Le joueur", player_number + 1, "joue une armée de",
               len(list_players[player_number].armies[players_army_choices[player_number]].cards), "cartes")
-        list_players[player_number].armies[players_army_choices[player_number]].delete_army()
+        list_players[player_number].armies.pop(player_choice)
     return players_army_choices
 
 
@@ -123,7 +122,15 @@ def play_round(list_players, number_players):
             round_winners.append(results[0])
     for winner in round_winners:
         list_players[winner].points += 1
-        print("Le joueur", winner, "a gagné le match, il gagne un point pour un total de", list_players[winner].points)
+        print("Le joueur", winner + 1, "a gagné le match, il gagne un point pour un total de", list_players[winner].points)
+
+
+def print_scores(players_list, player_number):
+    scorelist = []
+    for number_player in range(player_number):
+        scorelist.append((number_player, players_list[number_player].points))
+    scorelist.sort(key=lambda t: t[1])
+    print("----Tableau des scores ----")
 
 
 def main():
@@ -150,7 +157,7 @@ def main():
         players.append(player.Player())
 
     for match_number in range(number_matchs):
-        print("Match numéro :", match_number)
+        print("Match numéro :", match_number + 1)
         lonk_deck = deck.Deck()
         lonk_deck.shuffle_deck()
         for _ in range(10):
@@ -159,6 +166,7 @@ def main():
         create_armies(players)
         for i in range(5):
             play_round(players, player_number)
+            print_scores(players, player_number)
 
 
 if __name__ == "__main__":
