@@ -6,17 +6,20 @@ class Player:
 		self.hand = deck.Deck(0)
 		self.armies = []
 		for _ in range(5):
-			self.armies.append(deck.Deck(0, 0))
+			self.armies.append(deck.Deck(0))
 		self.points = 0
 
-	def get_player_armies(self):
+	def get_armies(self):
 		return self.armies
 
-	def get_player_hand(self):
-		return self.hand.cards
+	def get_hand(self):
+		return self.hand
+
+	def get_points(self):
+		return self.points
 
 	def add_card_to_army(self, army_number, card_value):
-		if card_value in self.hand.cards:
+		if self.hand.have_card(card_value):
 			self.armies[army_number].add_card(card_value)
 			self.hand.remove_card(card_value)
 		else:
@@ -32,5 +35,5 @@ class Player:
 
 if __name__ == "__main__":
 	player = Player()
-	print(player.hand.cards)
+	print(player.hand)
 	print(player.armies)

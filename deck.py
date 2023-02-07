@@ -36,13 +36,16 @@ class Deck:
 		shuffle(self.cards)
 
 	def have_king(self):
-		return 13 in self.cards
+		return self.have_card(13)
 
 	def have_queen(self):
-		return 12 in self.cards
+		return self.have_card(12)
 
 	def have_jack(self):
-		return 11 in self.cards
+		return self.have_card(11)
+
+	def have_card(self, value):
+		return value in self.cards
 
 	def update_value(self):
 		self.value = sum(self.cards)
