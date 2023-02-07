@@ -10,6 +10,9 @@ class Deck:
 	def get_cards(self):
 		return self.cards
 
+	def get_amount(self):
+		return value
+
 	def add_card(self, card_value):
 		self.cards.append(card_value)
 		self.update_value()
