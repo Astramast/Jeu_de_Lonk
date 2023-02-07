@@ -3,11 +3,13 @@ import deck
 
 class Player:
 	def __init__(self):
-		self.hand = deck.Deck(0)
+		self.hand = deck.Deck([])
 		self.armies = []
 		for _ in range(5):
-			self.armies.append(deck.Deck(0))
+			self.armies.append(deck.Deck([]))
 		self.points = 0
+		self.ready = False
+		self.choice = 0
 
 	def get_armies(self):
 		return self.armies
@@ -31,6 +33,17 @@ class Player:
 			self.armies[army_number].remove_card(card_value)
 		else:
 			print("Cette carte n'est pas dans l'armée")
+
+	def is_ready(self):
+		return self.ready
+
+	def get_choice(self):
+		return self.choice
+
+	def choose(self, value):
+		if value > 4:
+			raise ValueError("Choice value too high")
+		self.choice = value
 
 
 if __name__ == "__main__":

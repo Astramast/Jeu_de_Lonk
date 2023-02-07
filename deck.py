@@ -2,10 +2,15 @@ from random import shuffle
 
 
 class Deck:
-	def __init__(self, repetitions=4, values=13):
-		self.cards = [i + 1 for i in range(values)]*repetitions
+	def __init__(self, cards_list=[]):
+		self.cards = cards_list
 		self.cards.sort()
 		self.value = sum(self.cards)
+
+	@classmethod
+	def generate(cls, repetitions=4, values=13):
+		param = [i + 1 for i in range(values)]*repetitions
+		return cls(param)
 
 	def get_cards(self):
 		return self.cards
@@ -32,7 +37,7 @@ class Deck:
 	def sort_deck(self):
 		self.cards.sort()
 
-	def shuffle_deck(self):
+	def shuffle(self):
 		shuffle(self.cards)
 
 	def have_king(self):

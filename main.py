@@ -123,7 +123,7 @@ def play_round(list_players, number_players):
 def main():
     players = []
     lonk_deck = deck.Deck()
-    lonk_deck.shuffle_deck()
+    lonk_deck.shuffle()
     player_number = 0
     while player_number > 5 or player_number < 2:
         print("Le nombre de joueurs doit être entre 2 et 5")
