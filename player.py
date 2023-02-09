@@ -20,6 +20,21 @@ class Player:
 	def get_points(self):
 		return self.points
 
+	def get_army(self, number):
+		return self.armies[number]
+
+	def get_army_amount(self, number):
+		return self.armies[number].get_amount()
+
+	def army_have_king(self, number):
+		return self.armies[number].have_king()
+
+	def army_have_queen(self, number):
+		return self.armies[number].have_queen()
+
+	def army_have_jack(self, number):
+		return self.armies[number].have_jack()
+
 	def add_card_to_army(self, army_number, card_value):
 		if self.hand.have_card(card_value):
 			self.armies[army_number].add_card(card_value)
@@ -45,6 +60,8 @@ class Player:
 			raise ValueError("Choice value too high")
 		self.choice = value
 
+	def add_card(self, value):
+		self.hand.add_card(value)
 
 if __name__ == "__main__":
 	player = Player()
