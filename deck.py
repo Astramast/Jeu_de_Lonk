@@ -1,35 +1,36 @@
 from random import shuffle
+from card.py import Card, LonkCard
 
 
 class Deck:
 	def __init__(self, cards_list=[]):
 		self.cards = cards_list
 		self.cards.sort()
-		self.value = sum(self.cards)
+		self.amount = len(self.cards)
 
 	@classmethod
 	def generate(cls, repetitions=4, values=13):
-		param = [i + 1 for i in range(values)]*repetitions
+		param = [Card(i + 1) for i in range(values)]*repetitions
 		return cls(param)
 
-	def get_cards(self):
+	def getCards(self):
 		return self.cards
 
-	def get_amount(self):
-		return value
+	def getAmount(self):
+		return self.amount
 
-	def add_card(self, card_value):
-		self.cards.append(card_value)
+	def addCard(self, card):
+		self.cards.append(card)
 		self.update_value()
 
-	def remove_card(self, card_value):
-		if card_value in self.cards:
-			self.cards.remove(card_value)
+	def removeCard(self, card_value):
+		for card in self.cards:
+			if 
 			self.update_value()
 		else:
 			raise ValueError("This card is not in the deck")
 
-	def take_top_card(self):
+	def takeTopCard(self):
 		ret_val = self.cards.pop(0)
 		self.update_value()
 		return ret_val
