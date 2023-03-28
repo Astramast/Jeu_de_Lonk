@@ -1,5 +1,5 @@
 from random import shuffle
-from card.py import Card, LonkCard
+from Card.py import Card, LonkCard
 
 
 class Deck:

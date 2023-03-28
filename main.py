@@ -1,5 +1,5 @@
-import deck
-import player
+from Deck.py import Deck
+from Player.py import Player
 
 
 def update_table(list_players, players_army_choices):

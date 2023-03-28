@@ -1,4 +1,4 @@
-import deck
+from Deck.py import Deck
 
 
 class Player:
